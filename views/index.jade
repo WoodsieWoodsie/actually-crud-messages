@@ -2,12 +2,42 @@ doctype html
 html(lang="en")
   head
     title Home
-    link(href="bower_components/bootstrap/dist/css/bootstrap.min.css")
-    link(href="css/style.css")
+    link(href="bower_components/Materialize/dist/css/materialize.min.css" rel="stylesheet")
+    link(href="css/style.css" rel="stylesheet")
   body
     .container
-      br
-      .jumbotron
-        h1 Hey!
+      .row
+        .col.s12
+          .row
+            div.input-field.col.s12
+              input(type="text").user-name
+              //- label(for="user-name") Username
+          .row
+            div.input-field.col.s12
+              textarea.materialize-textarea.user-message
+              //- label(for="textarea").message Message
+          .row
+            a.waves-effect.waves-light.btn.submit Submit
+        .col.s12
+          .row
+            table.bordered.highlight
+              thead
+                tr
+                  th username
+                  th message
+                  th date
+                  th edit
+                  th delete   
+              tbody#messageBoard
+                - var properties = ['username', 'message', 'date']
+                each item, index in messagesArr
+                  tr(class= item._id) 
+                    each prop in properties
+                      td(class= prop, id= prop)= messagesArr[index][prop]
+                    td
+                      a.waves-effect.waves-light.btn.edit Edit Message
+                    td
+                      a.waves-effect.waves-light.btn.delete Delete Message
+                        div= messagesArr[index][prop]
     script(src='bower_components/jquery/dist/jquery.min.js')
     script(src='js/main.js')
